@@ -2,54 +2,64 @@
 body {
     font-size:12px;
     font-family:Tahoma, Verdana, Arial, Helvetica, Arial, sans-serif;
-}
-
-.tweet {
-    float:left;
-    padding-bottom:15px;
-    width: 100%;
-
+    margin:10px;
 }
 
 ul {
-    list-style:none;
+    list-style-type: none;
+    padding:0;
 }
 
-.tweet-comment {
-    float:left;
+.date {
+    display:table-cell;
+    border:1px solid blue;
+    padding:2px;
     text-align:center;
-    font-size:84%;
-    width:100px;
-
+    width:70px;
 }
 
-.tweet-comment img {
-    transform: rotate(-5deg);
-    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+.date-data {
+    display:table-cell;
+    border:1px solid blue;
+    /*height:100px;*/
+    padding:2px;
 }
 
-blockquote {
-    background-color: rgba(166, 218, 220, 0.5);
-    background-image: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0) 30px);
-    border-radius: 20px 20px 20px 20px;
-    border-top: 1px solid #FFFFFF;
-    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-    margin: 0 0 0 112px;
-    min-height: 42px;
-    padding: 10px 15px 5px;
-    position: relative;
-    word-wrap: break-word;
+
+.weather {
+    display:table;
+    width:100%;
 }
 
-blockquote:after {
-    border-color: transparent rgba(166, 218, 220, 0.5) transparent transparent;
-    border-style: solid;
-    border-width: 10px 20px 10px 0;
-    content: " ";
-    display: block;
-    height: 0;
-    left: -20px;
-    position: absolute;
-    top: 20px;
-    width: 0;
+.day {
+    display:table-row;
+}
+
+.data-times {
+    display: table;
+}
+
+.data-time {
+    display: table-cell;
+    width:70px;
+    text-align: center;
+    padding:0 4px;
+    border-right:1px dotted;
+}
+
+.date-data div:last-child {
+    border:0;
+}
+
+.date em {
+    display:block;
+}
+
+
+.data-time .temp em {
+    padding: 0;
+    display:block;
+}
+.data-time .temp .current {
+    font-weight:bold;
 }
