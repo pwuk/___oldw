@@ -185,8 +185,6 @@ function doQuery() {
       }
    }
 
-
-
    weather.go({
       units: units,
       city:'London',
@@ -194,7 +192,6 @@ function doQuery() {
    });
 
 }
-
 
 setupEventListeners();
 doQuery();
