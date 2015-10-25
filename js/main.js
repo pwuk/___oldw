@@ -2,75 +2,6 @@
 var app = {};
 app.utils = {};
 
-app.Weather = function (callback) {
-
-
-   //twitter private module
-   var weather =  {
-
-      data: undefined,
-
-      search: {
-         url: "http://api.openweathermap.org/data/2.5/forecast?units=metric&mode=json&appid=bd82977b86bf27fb59a04b61b657fb6f&callback="+callback
-      },
-
-      setData : function(data) {
-         this.data = data;
-      },
-
-      go: function(config) {
-
-         var scriptBlock, search, docHeader, i, query, scope, args;
-
-         if(config && config.city && config.country)  {
-
-
-            query = [];
-
-            query = app.utils.urlencode(config.city) + ',' +
-                     app.utils.urlencode(config.country);
-
-            scriptBlock = document.createElement('script'),
-               scriptBlock.language = 'javascript';
-            scriptBlock.type = 'text/javascript';
-            search = this.search;
-
-            scriptBlock.src = search.url +
-            '&q=' + query +
-            '&rand=' + Math.floor(Math.random() * 10000000);
-
-            docHeader = document.getElementsByTagName('head')[0];
-            docHeader.appendChild(scriptBlock);
-
-
-            scope = this;
-
-            if(parseInt(this.search.timeOut, 10) > 0) {
-               setTimeout(function() {
-                  scope.go.apply(scope, args);
-               }, parseInt(this.search.timeOut, 10));
-
-            }
-
-
-         }
-         else {
-            throw new Error("config : {city:, country: } required" );
-
-
-         }
-
-
-      }
-
-   };
-
-
-   //expose tweet search to the public
-   return weather;
-}
-
-
 
 app.utils.urlencode = function(str) {
    return escape(str).
@@ -82,35 +13,7 @@ app.utils.urlencode = function(str) {
       replace(/#/g, '%23');
 }
 
-Number.prototype.zpad = function(zs) {
-   var numstr = this.toString();
-   return parseInt(0,10).toFixed(zs - numstr.length).substr(2) + numstr;
-}
-
-
-
-app.utils.dateFormat = function(twDate) {
-
-   var d = new Date(twDate),
-      cdate = d.getDate(),
-      cmonth = d.getMonth() + 1,
-      cyear = d.getFullYear(),
-      cmin = d.getMinutes(),
-      chour = d.getHours(),
-      csec  = d.getSeconds();
-
-   return  cyear.toString() + "/" +
-      cmonth.zpad(2) + "/" +
-      cdate.zpad(2) + " " +
-      chour.zpad(2) + ":" +
-      cmin.zpad(2) + ":" +
-      csec.zpad(2);
-
-};
-
-
-
-var weather = new app.Weather("weather.callback");
+var weather = new Weather("weather.callback");
 
 
 weather.callback = function(data) {
@@ -125,6 +28,8 @@ weather.render = function() {
 
    target = document.getElementById("weather");
    refLI = document.getElementById("insertRef");
+
+   target.innerHTML = "";
 
    curDate = this.data.list[0].dt_txt.slice(0,10);
 
@@ -247,7 +152,7 @@ weather.template = function(dayData) {
 
    function getRain(obj) {
       var value='';
-      if(obj.rain['3h']) {
+      if(obj.rain && obj.rain['3h']) {
          value = '<em class="wind">3h Rain: ' + obj.rain['3h'] + '</em>'
       }
       return value;
@@ -257,14 +162,42 @@ weather.template = function(dayData) {
 
 };
 
-weather.go({
-   city:'London',
-   country:'uk'
-});
+
+function setupEventListeners() {
+   var radios = document.getElementsByName('units');
+
+   for (var i = 0, length = radios.length; i < length; i++) {
+      radios[i].onclick = doQuery
+   }
+
+}
 
 
 
+function doQuery() {
+   var units;
+   var radios = document.getElementsByName('units');
 
+   for (var i = 0, length = radios.length; i < length; i++) {
+      if (radios[i].checked) {
+         units = radios[i].value;
+         break;
+      }
+   }
+
+
+
+   weather.go({
+      units: units,
+      city:'London',
+      country:'uk'
+   });
+
+}
+
+
+setupEventListeners();
+doQuery();
 
 
 
