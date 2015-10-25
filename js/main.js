@@ -67,6 +67,19 @@ weather.template = function(dayData) {
    var template = [];
    var week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
+   debugger;
+
+   var temperature, speed;
+
+   if(this.units === 'metric') {
+      temperature = '&#8451;';
+      speed = 'Kph';
+   }
+   else if(this.units === 'imperial') {
+      temperature = '&#8457;';
+      speed = 'Mph';
+   }
+
    template.push(
       '<div class="day">',
       '<div class="date">',
@@ -91,9 +104,9 @@ weather.template = function(dayData) {
          max = Math.max(max, day[i].main.temp_max)
       }
 
-      return '<em class="min">Min: ' + min.toString() + '</em>' +
+      return '<em class="min">Min: ' + min.toString() + temperature + '</em>' +
          '<em>&ndash;</em>'+
-         '<em class="max">Max: ' + max.toString() + '</em>'
+         '<em class="max">Max: ' + max.toString() + temperature+'</em>'
 
    }
 
@@ -128,9 +141,9 @@ weather.template = function(dayData) {
    }
 
    function getTemp(obj) {
-      return '<em class="min">' + obj.main.temp_min.toString() + '</em>' +
-            '<em class="current">' + obj.main.temp.toString() + '</em>' +
-         '<em class="max">' + obj.main.temp_max.toString() + '</em>'
+      return '<em class="min">' + obj.main.temp_min.toString() + temperature + '</em>' +
+            '<em class="current">' + obj.main.temp.toString() + temperature + '</em>' +
+         '<em class="max">' + obj.main.temp_max.toString() + temperature + '</em>'
    }
 
 
@@ -147,7 +160,7 @@ weather.template = function(dayData) {
    }
 
    function getWind(obj) {
-      return value =  '<em class="wind">Wind: ' + obj.wind.speed.toString() + '%</em>'
+      return value =  '<em class="wind">Wind: ' + obj.wind.speed.toString() + speed + '</em>'
    }
 
    function getRain(obj) {
