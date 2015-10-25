@@ -67,8 +67,6 @@ weather.template = function(dayData) {
    var template = [];
    var week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-   debugger;
-
    var temperature, speed;
 
    if(this.units === 'metric') {

@@ -24,6 +24,9 @@ var Weather  = (function() {
 
                query = [];
 
+               this.units = app.utils.urlencode(config.units || 'metric')
+
+
                query = app.utils.urlencode(config.city) + ',' +
                app.utils.urlencode(config.country);
 
@@ -34,7 +37,7 @@ var Weather  = (function() {
 
                scriptBlock.src = search.url +
                '&q=' + query +
-               '&units=' + app.utils.urlencode(config.units || 'metric')
+               '&units=' + app.utils.urlencode(this.units) +
                '&rand=' + Math.floor(Math.random() * 10000000);
 
                docHeader = document.getElementsByTagName('head')[0];
