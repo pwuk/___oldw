@@ -22,8 +22,6 @@ var Weather  = (function() {
 
             if (config && config.city && config.country) {
 
-               query = [];
-
                this.units = app.utils.urlencode(config.units || 'metric')
 
 
