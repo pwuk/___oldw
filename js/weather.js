@@ -3,7 +3,7 @@ var Weather  = (function() {
    var Weather = function (callback, units) {
 
 
-      //twitter private module
+      //private module
       var weather = {
 
          data: undefined,
