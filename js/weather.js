@@ -62,7 +62,6 @@ var Weather  = (function() {
 
       };
 
-      //expose tweet search to the public
       return weather;
    }
 
