@@ -164,7 +164,7 @@ weather.template = function(dayData) {
    function getRain(obj) {
       var value='';
       if(obj.rain && obj.rain['3h']) {
-         value = '<em class="wind">3h Rain: ' + obj.rain['3h'] + '</em>'
+         value = '<em class="rain">3h Rain: ' + obj.rain['3h'] + '</em>'
       }
       return value;
    }
